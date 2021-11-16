@@ -5,10 +5,11 @@ import requests
 from time import sleep
 from datetime import datetime
 import sys
+from generator import Generator
 
 
 class AccountManager:
-    def __init__(self):
+    def __init__(self, phone_number, password):
         with open("network.json") as network:
             data = load(network)
             self.rpcUrl = data["rpcUrl"]
@@ -29,12 +30,12 @@ class AccountManager:
             self.address_reg = data["registrar"]
             self.address_pay = data["payments"]
 
-        with open("first_wallet.json") as wallet:
-            data = load(wallet)
-            self.private_key = data['private_key']
+        generator = Generator(phone_number, password)
+        self.private_key = generator.generate_private_key()
 
         self.web3 = Web3(HTTPProvider(self.rpcUrl))
         self.account = self.web3.eth.account.privateKeyToAccount(self.private_key)
+        print(self.account.address)
         self.contract_pay = self.web3.eth.contract(address = self.address_pay, abi = self.pay_abi)
     
     def convert(self, balance):
@@ -155,8 +156,3 @@ class AccountManager:
     def get_balance(self):
         balance = self.web3.eth.getBalance(self.account.address)
         print("Your balance is", balance)
-
-
-manager = AccountManager()
-manager.make_transaction('0xa118daF3d5451f5fA014048CFf5d6baD4ab5c9BE', 2000000000)
-manager.show_payments()
