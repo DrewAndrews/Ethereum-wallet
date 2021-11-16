@@ -135,6 +135,7 @@ class AccountManager:
         print("Payment added:", pay_reciept["transactionHash"].hex())
 
     def show_payments(self):
+        # Получаем платежи текущего пользователя из контракта
         payments = self.contract_pay.functions.get_payments_list(self.account.address).call()
         for payment in payments:
             data = self.web3.eth.getTransaction(payment.hex())
