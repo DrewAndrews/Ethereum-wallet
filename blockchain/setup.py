@@ -83,7 +83,4 @@ class Configurator:
         print("Payment Handler:", pay_address)
         with open("registrar.json", 'w') as registrar:
             dump({"registrar": reg_address, "payments": pay_address}, registrar)
-
-
-configurator = Configurator()
-configurator.deploy()
+            
