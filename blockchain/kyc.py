@@ -6,26 +6,28 @@ from time import sleep
 from datetime import datetime
 import sys
 from generator import Generator
+import os
 
 
 class AccountManager:
     def __init__(self, phone_number, password):
-        with open("network.json") as network:
+        current_dir = os.path.dirname(os.path.realpath(__file__))
+        with open(os.path.join(current_dir, "network.json")) as network:
             data = load(network)
             self.rpcUrl = data["rpcUrl"]
             self.gas_url = data["gasPriceUrl"]
             self.default_price = data["defaultGasPrice"]
 
-        with open("registrar.abi") as abi:
+        with open(os.path.join(current_dir, "registrar.abi")) as abi:
             self.reg_abi = abi.read()
-        with open("registrar.bin") as bin:
+        with open(os.path.join(current_dir, "registrar.bin")) as bin:
             self.reg_bytecode = bin.read()
-        with open("payments.abi") as abi:
+        with open(os.path.join(current_dir, "payments.abi")) as abi:
             self.pay_abi = abi.read()
-        with open("payments.bin") as bin:
+        with open(os.path.join(current_dir, "payments.bin")) as bin:
             self.pay_bytecode = bin.read()
 
-        with open("registrar.json") as registrar:
+        with open(os.path.join(current_dir, "registrar.json")) as registrar:
             data = load(registrar)
             self.address_reg = data["registrar"]
             self.address_pay = data["payments"]
