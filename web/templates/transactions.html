@@ -2,4 +2,7 @@
 
 {% block content %}
     <h1>Transactions</h1>
+    {% for payment in payments %}
+        <p>{{ payment.time }} {{ payment.direction }} {{ payment.sender }} {{ payment.value }}</p>
+    {% endfor %}
 {% endblock content %}

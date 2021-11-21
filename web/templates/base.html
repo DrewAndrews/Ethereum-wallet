@@ -1,7 +1,7 @@
 {% load static %}
 <hmtl>
     <head>
-        <title>Ethereum-wallet</title>
+        <title>MopsCoin</title>
         <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400' rel='stylesheet'>
         <link href="{% static 'css/base.css' %}" rel='stylesheet'>
     </head>
@@ -9,7 +9,12 @@
         <div>
             <header>
             <div class='nav-left'>
-                <h1> <a href="{% url 'Home'%}">Home</a> | <a href="{% url 'Transactions'%}">Transactions</a> | <a href="{% url 'New_token'%}">Tokens</a></h1>
+                {% if  account.is_logged_in %}
+                    <h1> <a href="{% url 'Home'%}">{{ account.account.address }}</a> | <a href="{% url 'Transactions'%}">Transactions</a> | <a href="{% url 'New_token'%}">Tokens</a></h1>
+                {% else %}
+                    <h1> Login </h1>
+                {% endif %}
+                
             </div>
             </header>
             {% block content %}
