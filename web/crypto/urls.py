@@ -1,10 +1,10 @@
 from django.urls import path
 
-from .views import HomePageView, SignUpPageView, TransactionsPageView, TokenFormView
+from .views import home_page, signup_page, transaction_page, send_token_page
 
 urlpatterns = [
-    path('', HomePageView.as_view(), name='Home'),
-    path('transactions/', TransactionsPageView.as_view(), name='Transactions'), 
-    path('transactions/new/', TokenFormView.as_view(), name='New_token'),
-    path('signup/', SignUpPageView.as_view(), name='Signup')
+    path('', home_page, name='Home'),
+    path('transactions/', transaction_page, name='Transactions'), 
+    path('transactions/new/', send_token_page, name='New_token'),
+    path('signup/', signup_page, name='Signup')
 ]

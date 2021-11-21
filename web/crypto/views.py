@@ -12,34 +12,46 @@ from kyc import AccountManager
 
 account = AccountManager()
 
+#def get_redirect_url
 
-class HomePageView(TemplateView):
-    template_name = 'home.html'
+def home_page(request):
+    context = {
+        'account': account
+    }
+    return render(request,'home.html', context)
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['account'] = account
-        return context
+def transaction_page(request):
+ #   if account.is_logged_in:
+#      context
+        return render(request, 'transactions.html')
     
-    def get_redirect_url
+def signup_page(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        
+        context = {
+            'account': account
+        }
+        
+        if form.is_valid():
+            phone = form.cleaned_data['phone']
+            password = form.cleaned_data['password']
+            account.login(phone, password)
+            return render(request,'home.html', context)
+    else:
+        form = UserForm()
+        
+    return render(request, 'signup.html', {'form': form})
+    
 
-class TransactionsPageView(TemplateView):
-    template_name = "transactions.html"
+def send_token_page(request):
+    if request.method == 'POST':
+        form = TokenForm(request.POST)
+        if form.is_valid():
+            address = form.cleaned_data['address']
+            value = form.cleaned_data['value']
+            return render(request, 'transactions.html')
+    else:
+        form = TokenForm()
     
-class SignUpPageView(FormView):
-    form_class = UserForm
-    template_name = 'signup.html'
-    success_url = reverse_lazy('Home')
-    
-    def form_valid(self, form):
-        phone = form.cleaned_data['phone']
-        password = form.cleaned_data['password']
-        account.login(phone, password)
-        return super().form_valid(form)
-    
-
-class TokenFormView(FormView):
-    form_class = TokenForm
-    template_name = "new_token.html"
-    success_url = reverse_lazy('Transactions')
-    
+    return render(request, 'new_token.html', {'form': form})   
