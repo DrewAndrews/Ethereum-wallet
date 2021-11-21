@@ -6,6 +6,7 @@ from time import sleep
 from datetime import datetime
 from generator import Generator
 import os
+from collections import namedtuple
 
 
 class AccountManager:
@@ -150,27 +151,30 @@ class AccountManager:
     def show_payments(self):
         if self.is_logged_in():
             # Получаем платежи текущего пользователя из контракта
+            Payment = namedtuple('Payment', 'time direction sender value')
             payments = self.contract_pay.functions.get_payments_list(self.account.address).call()
+            payments_to_return = []
             for payment in payments:
                 data = self.web3.eth.getTransaction(payment.hex())
                 if data["from"] == self.account.address: 
                     time_sending = datetime.fromtimestamp(self.web3.eth.getBlock(data["blockNumber"])["timestamp"])
-                    to = data["to"] #str(contract_reg.functions.get_number(data["to"]).call())
-                    # to = to[to.find("'") + 1:to.rfind("'")]
+                    to = data["to"]
                     value = self.convert(int(data["value"]))
-                    print(time_sending, "TO:", to, "VALUE:", value)
+                    processed_payment = Payment(time_sending, "TO", to, value)
+                    payments_to_return.append(processed_payment)
                 else:
                     time_sending = datetime.fromtimestamp(self.web3.eth.getBlock(data["blockNumber"])["timestamp"])
-                    sender = data["from"] # str(contract_reg.functions.get_number(data["from"]).call())
-                    # sender = sender[sender.find("'") + 1:sender.rfind("'")]
+                    sender = data["from"]
                     value = self.convert(int(data["value"]))
-                    print(time_sending, "FROM:", sender, "VALUE:", value)
+                    processed_payment = Payment(time_sending, "TO", to, value)
+                    payments_to_return.append(processed_payment)
+            return payments_to_return
         else:
             print("Авторизуйся, додик")
 
     def get_balance(self):
         if self.is_logged_in():
             balance = self.web3.eth.getBalance(self.account.address)
-            print("Your balance is", balance)
+            return balance
         else:
             print("Авторизуйся, додик")
