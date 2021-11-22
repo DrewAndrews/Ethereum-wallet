@@ -1,8 +1,28 @@
 {% extends 'base.html'%}
+{% load static %}
 
 {% block content %}
     <h1>Transactions</h1>
-    {% for payment in payments %}
-        <p>{{ payment.time }} {{ payment.direction }} {{ payment.sender }} {{ payment.value }}</p>
-    {% endfor %}
+
+    <table class="table table-bordered table-inverse table-responsive">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Time</th>
+                <th>Direction</th>
+                <th>Sender</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for payment in payments %}
+                    <tr>
+                        <td scope="row">{{ payment.time }}</td>
+                        <td>{{ payment.direction }}</td>
+                        <td>{{ payment.sender }}</td> 
+                        <td>{{ payment.value }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+    </table>
 {% endblock content %}
+

@@ -1,0 +1,33 @@
+html{
+    background-color: #CCCCCC !important;
+}
+
+body{
+    background-color: #CCCCCC !important;
+}
+footer{
+    background-color: #CCCCCC !important;
+}
+main{
+    background-color: #CCCCCC !important;
+}
+.navbar{
+    background:#333333;
+   }
+   .nav-link , .navbar-brand{
+    color: #8d8484;
+    cursor: pointer;
+   }
+   .nav-link{
+    margin-right: 1em !important;
+   }
+   .nav-link:hover{
+    background: #726f6f;
+    color: #666564;
+   }
+   .navbar-collapse{
+    justify-content: flex-end;
+   }
+   .navbar-toggler{
+     background:rgb(109, 107, 107) !important;
+   }
