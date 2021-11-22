@@ -4,11 +4,13 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <h1>Send token</h1>
-    <form action= "{% url 'New_token' %}" method='post'>{%csrf_token%}
-        {{ form|crispy }}
-        <input type="submit" value="send" class="btn btn-primary">
-    </form>
+    <div class="container">
+        <h1>Send token</h1>
+        <form action= "{% url 'New_token' %}" method='post'>{%csrf_token%}
+            {{ form|crispy }}
+            <input type="submit" value="send" class="btn btn-primary">
+        </form>
+    </div>
 
 
 {% endblock content %}
