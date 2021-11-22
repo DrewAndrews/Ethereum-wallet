@@ -42,6 +42,10 @@ class AccountManager:
         self.private_key = generator.generate_private_key()
         self.account = self.web3.eth.account.privateKeyToAccount(self.private_key)
 
+    def logout(self):
+        self.private_key = ""
+        self.account = ""
+
     def is_logged_in(self):
         return self.private_key != ""
     
