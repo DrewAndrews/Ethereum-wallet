@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .forms import TokenForm, UserForm
 
 import sys
@@ -77,4 +77,9 @@ def send_token_page(request):
         else:
             form = TokenForm()
         return render(request, 'new_token.html', {'form': form, 'account': account})
+    return signup_page(request)
+
+def log_out(request):
+    print("1")
+    account.logout()
     return signup_page(request)

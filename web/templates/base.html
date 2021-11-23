@@ -19,11 +19,11 @@
                         <img class="nav-item nav-link active w-16 h-16 mx-auto d-block" src="{% static 'img/favicon-32x32.png' %}"><span class="sr-only"></span></a>
                         <a class="nav-item nav-link" href="{% url 'Home'%}"><h3>{{ account.account.address }}</h3></a>
                         <a class="nav-item nav-link" href="{% url 'Transactions'%}"><h3>Transactions</h3></a>
-                        <a class="nav-item nav-link" href="{% url 'New_token'%}"><h3>Tokens</h3></a>
-                    </div>
-                    <ul class="navbar-nav mas-auto">
-                        <a class="btn btn-danger" href="#"><h5>Log out</h5></a>
-                    </ul>
+                        <a class="nav-item nav-link" href="{% url 'New_token'%}"><h3>Tokens</h3></a>    
+                    </div>   
+                    <div class="navbar-nav ms-auto">
+                            <a class="btn btn-danger" href="{% url "Logout" %}">Log out</a>
+                    </div>                 
                 </nav>
             {% else %}
                 <nav class="navbar navbar-expand navbar-dark bg-dark">
