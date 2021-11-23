@@ -27,21 +27,21 @@ def home_page(request):
     
 def transaction_page(request):
     if account.is_logged_in():
+        if request.method == 'POST':
+            sort_by = request.POST.get('sort_button')
+            print(sort_by)
+            
+            return redirect()
+        
         payments = account.show_payments()
         
         context = {
             'payments': payments,
             'account': account
         }
-        
         return render(request, 'transactions.html', context)
     else:
         return signup_page(request)
-    
-    def get_ordering(self):
-        
-        return
-    
     
 def signup_page(request):
     if request.method == 'POST':
