@@ -163,13 +163,13 @@ class AccountManager:
                 if data["from"] == self.account.address: 
                     time_sending = datetime.fromtimestamp(self.web3.eth.getBlock(data["blockNumber"])["timestamp"])
                     to = data["to"]
-                    value = self.convert(int(data["value"]))
+                    value = int(data["value"])
                     processed_payment = Payment(time_sending, "TO", to, value)
                     payments_to_return.append(processed_payment)
                 else:
                     time_sending = datetime.fromtimestamp(self.web3.eth.getBlock(data["blockNumber"])["timestamp"])
                     sender = data["from"]
-                    value = self.convert(int(data["value"]))
+                    value = int(data["value"])
                     processed_payment = Payment(time_sending, "FROM", sender, value)
                     payments_to_return.append(processed_payment)
             return payments_to_return
