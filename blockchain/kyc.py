@@ -1,8 +1,9 @@
+from eth_account import account
 from web3 import Web3, HTTPProvider
 from json import load
 from sha3 import keccak_256
 import requests
-from time import sleep
+from time import sleep, time
 from datetime import datetime
 from generator import Generator
 import os
@@ -161,13 +162,17 @@ class AccountManager:
             for payment in payments:
                 data = self.web3.eth.getTransaction(payment.hex())
                 if data["from"] == self.account.address: 
-                    time_sending = datetime.fromtimestamp(self.web3.eth.getBlock(data["blockNumber"])["timestamp"])
+                    format  = "%m/%d/%Y %H:%M:%S"
+                    date = datetime.fromtimestamp(self.web3.eth.getBlock(data["blockNumber"])["timestamp"])
+                    time_sending = date.strftime(format)
                     to = data["to"]
                     value = int(data["value"])
                     processed_payment = Payment(time_sending, "TO", to, value)
                     payments_to_return.append(processed_payment)
                 else:
-                    time_sending = datetime.fromtimestamp(self.web3.eth.getBlock(data["blockNumber"])["timestamp"])
+                    format  = "%m/%d/%Y %H:%M:%S"
+                    date = datetime.fromtimestamp(self.web3.eth.getBlock(data["blockNumber"])["timestamp"])
+                    time_sending = date.strftime(format)
                     sender = data["from"]
                     value = int(data["value"])
                     processed_payment = Payment(time_sending, "FROM", sender, value)
