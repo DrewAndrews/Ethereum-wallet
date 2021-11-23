@@ -1,6 +1,8 @@
 from django.shortcuts import redirect, render
 from .forms import TokenForm, UserForm
 
+import web3
+
 import sys
 
 sys.path.append('../blockchain/')
@@ -36,6 +38,10 @@ def transaction_page(request):
     else:
         return signup_page(request)
     
+    def get_ordering(self):
+        
+        return
+    
     
 def signup_page(request):
     if request.method == 'POST':
@@ -62,7 +68,7 @@ def send_token_page(request):
     if account.is_logged_in():
         
         context = {
-                    'account': account
+            'account': account
         }
         
         if request.method == 'POST':
@@ -70,16 +76,27 @@ def send_token_page(request):
             if form.is_valid():
                 address = form.cleaned_data['address']
                 value = form.cleaned_data['value']
-                account.make_transaction(address, value)
+                try:
+                    account.make_transaction(address, value)
+                except web3.exceptions.InvalidAddress:
+                    form = TokenForm()
+                    context["error"] = 'Address is not valid'
+                    context["form"] =  TokenForm()
+                    return render(request, 'new_token.html', context)
+                except ValueError:
+                    form = TokenForm()
+                    context["error"] = 'Not enough funds for this transaction'
+                    context["form"] =  TokenForm()
+                    return render(request, 'new_token.html', context)             
+                    
                 return render(request, 'transactions.html', context)
-            else:
-                return signup_page(request)
         else:
             form = TokenForm()
+            
         return render(request, 'new_token.html', {'form': form, 'account': account})
+    
     return signup_page(request)
 
 def log_out(request):
-    print("1")
     account.logout()
     return signup_page(request)
