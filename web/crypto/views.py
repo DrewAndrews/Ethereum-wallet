@@ -26,13 +26,7 @@ def home_page(request):
         return signup_page(request)
     
 def transaction_page(request):
-    if account.is_logged_in():
-        if request.method == 'POST':
-            sort_by = request.POST.get('sort_button')
-            print(sort_by)
-            
-            return redirect()
-        
+    if account.is_logged_in():        
         payments = account.show_payments()
         
         context = {
@@ -68,7 +62,7 @@ def send_token_page(request):
     if account.is_logged_in():
         
         context = {
-            'account': account
+            'account': account,
         }
         
         if request.method == 'POST':
@@ -88,8 +82,10 @@ def send_token_page(request):
                     context["error"] = 'Not enough funds for this transaction'
                     context["form"] =  TokenForm()
                     return render(request, 'new_token.html', context)             
-                    
-                return render(request, 'transactions.html', context)
+                
+                balance = account.get_balance()
+                context['balance'] = balance
+                return render(request, 'home.html', context)
         else:
             form = TokenForm()
             
