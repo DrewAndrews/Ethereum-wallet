@@ -1,34 +1,21 @@
-.navbar {
-    background:#333333;
-    height: 80px;
-}
 .nav-link , .navbar-brand{
     color: #8d8484;
-    cursor: pointer;
+    
 }
 .nav-link{
     margin-right: 1em !important;
 }
-.nav-link:hover{
-    background: #726f6f;
-    color: #666564;
-    height: 80px;
-}
-.navbar-collapse{
-    justify-content: flex-end;
-}
-.navbar-toggler{
-    background:rgb(109, 107, 107) !important;
-}
 
-.th{
-    cursor: pointer;
+ul{
+    vertical-align: middle;
 }
-
 .table thead th { 
     color: white; 
 }
 
 td { 
     color: white; 
+}
+th{
+    cursor:pointer;
 }
