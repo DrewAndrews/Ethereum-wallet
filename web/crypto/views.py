@@ -1,11 +1,15 @@
 from django.shortcuts import redirect, render
 from .forms import TokenForm, UserForm
+from django.conf import settings
 
 import web3
 
 import sys
 
-sys.path.append('../blockchain/')
+if settings.DEBUG:
+    sys.path.append('../blockchain')
+else:
+    sys.path.append('/app/blockchain')
 
 from kyc import AccountManager
 
