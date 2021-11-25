@@ -6,10 +6,8 @@ import web3
 
 import sys
 
-if settings.DEBUG:
-    sys.path.append('../blockchain')
-else:
-    sys.path.append('/app/blockchain')
+sys.path.append('/app/web/blockchain')
+
 
 from kyc import AccountManager
 
