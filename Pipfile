@@ -9,6 +9,7 @@ django-crispy-forms = "*"
 web3 = "*"
 pysha3 = "*"
 gunicorn = "*"
+whitenoise = "*"
 
 [dev-packages]
 
