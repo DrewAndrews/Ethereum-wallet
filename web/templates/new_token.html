@@ -9,7 +9,7 @@
         <form action= "{% url 'New_token' %}" method='post'>{%csrf_token%}
             {{ form|crispy }}
             <p></p>
-            <input type="submit" value="send" class="btn btn-primary">
+            <input type="submit" value="Send" class="btn btn-primary">
             {% if error %}
                 <p>"{{ error }}"</p>
             {% endif %}
